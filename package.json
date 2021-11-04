@@ -1,0 +1,28 @@
+{
+  "name": "AI-chan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jet-Green/AI-chan.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jet-Green/AI-chan/issues"
+  },
+  "homepage": "https://github.com/Jet-Green/AI-chan#readme",
+  "dependencies": {
+    "discord.js": "^13.3.0",
+    "dotenv": "^10.0.0",
+    "firebase": "^9.2.0",
+    "firebase-admin": "^10.0.0",
+    "nodemon": "^2.0.14",
+    "wokcommands": "^1.5.3"
+  }
+}
