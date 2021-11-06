@@ -73,17 +73,21 @@ client.on('guildMemberAdd', async (member) => {
   delete user_temp.id
   delete user_temp.flags
 
-  await db.collection('users').doc(id).set(user_temp).catch(error => console.error("Can't add new user", error))
+  // await db.collection('users').doc(id).set(user_temp).catch(error => console.error("Can't add new user", error))
   console.log('Doc have been added to collection: ', user_temp)
 
   channel.send(message)
 
+  let members = client.guilds.cache.get('903878049307697152').members.cache
+  // ${members.get('714189094581829632').username}
+  let jd = member.joinedAt
   var embed = new DiscordJS.MessageEmbed()
-    .setTitle(`Hi, ${member.displayName}`)
+    .setTitle(`Привет, ${member.displayName}`)
     .setColor('#ff0051')
-    .setDescription('Welcome ......................................')
-    .setFooter(`ID: ${member.id} | ................`, '')
-  // .setImage('')
+    .setDescription(`Добро пожаловать на наш сервер. Здесь вы найдёте единомышленников, поучаствуете в проектах и получите много опыта.\n
+    У нас есть: \n- Web-разработка - Наставник Роман Грачёв(Roman_Gr#6347)\n- C# - Наставник Игорь Осаволюк(IgorOsavoluk#7799)\n- Java - Наставник Артём Никулин(Tema Nick#6586)\n- Python - Наставник Григорий Дзюин(GrishaDzyin#1554)\n\n\nЧтобы нам было легче, пожалуйста, напишите о себе несколько предложений(ваши навыки, можете прикрепить ссылки на свой GitHub, LinkedIn)`)
+    .setFooter(`Ваш ID на сервере: ${member.id} | Присоединились ${jd.getDate()}.${jd.getMonth()}.${jd.getFullYear()}`)
+  // .setImage('https://sun9-41.userapi.com/impg/c857036/v857036501/3dc24/UlT2ZvHYQpQ.jpg?size=259x315&quality=96&sign=c7f15a59f71fbe2d67bc515ea5db94bb&type=album')
   // .setThumbnail('')
 
   member.createDM().then(DMchannel => {
