@@ -5,6 +5,7 @@ const db = require('./firebaseinit').admin.firestore()
 const { dirRoles, lvlRoles, lvlPostId, dirPostId } = require('./config')
 require('dotenv').config()
 const { Intents } = DiscordJS
+// https://colorscheme.ru/#5B31Tw0w0w0w0 Color sheme
 
 // bot init
 const client = new DiscordJS.Client({
@@ -31,6 +32,73 @@ client.on('ready', async () => {
     commandsDir: path.join(__dirname, 'commands'),
     featureDir: path.join(__dirname, 'features'),
   }).setDefaultPrefix('.')
+  // info
+  const infoChannel = client.channels.cache.get('907286503359664138')
+  infoChannel.messages.fetch().then(messages => {
+    messages.forEach(m => m.delete())
+  });
+  // .catch(e => consle.error(e))
+  // ) {
+  // m.delete()
+  // }
+  const embedInfoWorkflow = new DiscordJS.MessageEmbed()
+    .setTitle('')
+    .setColor('#FD7279')
+    .addFields([
+      {
+        name: 'Для чего этот сервер?',
+        value: `Здесь вы познакомитесь с настоящими специалистами в своей сфере и начнёте участвовать в проектах\nС определённого уровня вы сможете начать работать за деньги, выполняя заказы. Не верите? - Спросите у наставников`
+      },
+      {
+        name: 'Что за проекты?',
+        value: `Мы реализуем идеи, на которые набралась команда.\nВсе идеи в Agile-доске Trello: https://trello.com/invite/b/fFBotYmp/62e73d193e579fb8902853272cf5a09b/it-%D0%B3%D0%BB%D0%B0%D0%B7%D0%BE%D0%B2\n\nИщем в доске идею или предлагаем свою\n⇓\nНабираем себе команду\n⇓\nПереходим в другую доску и начинаем работать над проектом как настоящая команда) и конечно с помощью наставников, они вам всё объяснят\n\nВы можете предложить идеи проектов в канале "идеи"\nПодробнее про проекты могут рассказать наставники`
+      },
+      {
+        name: 'Что за "определённый уровень"?',
+        value: 'После нескольких проектов вы можете попросить наставника оценить ваши навыки\nВы можете повысить свой уровень, попросив об этом наставника или администратора, но будьте внимательны, *расписать систему рангов*'
+      },
+      {
+        name: 'Как мне набрать команду?',
+        value: 'Легко! - Просто напишите об этом в чат по направлению в котором вы развиваетесь'
+      }
+    ])
+    .setImage(`https://i.ibb.co/RPy9v2q/developing.png`)
+    // 'https://drive.google.com/file/d/1_WJKxA2IEgJPI5OX_UfGm7TNJphZGiuQ/view?usp=sharing')
+    .setAuthor('IT-Глазов')
+    .setThumbnail('https://sun9-41.userapi.com/impg/c857036/v857036501/3dc24/UlT2ZvHYQpQ.jpg?size=259x315&quality=96&sign=c7f15a59f71fbe2d67bc515ea5db94bb&type=album')
+
+
+  const embedInfoMentors = new DiscordJS.MessageEmbed()
+    .setTitle(`Информация о наставниках`)
+    .setColor('#A5EF00')
+    .addFields([
+      {
+        name: '🌐Web-разработка',
+        value: `Роман Грачёв\n - Различная информация и тд wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\n\nВКонтакте: https://vk.com/grachevrv\nМобилный телефон: 89068970429\nDiscord: Roman_Gr#6347\nGitHub: https://github.com/qbclub`
+      },
+      {
+        name: '☕Java',
+        value: `Артём Никулин\n - Различная информация и тд wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\n\nВКонтакте: https://vk.com/nikulinme\nInstagram: 
+        https://www.instagram.com/nikulin.me/\nDiscord: Tema Nick#6586\nGitHub: https://github.com/nikulin-me`
+      },
+      {
+        name: '🦈С#',
+        value: `Игорь Осаволюк\n - Различная информация и тд wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\n\nDiscord: IgorOsavoluk#7799`
+      },
+      {
+        name: '🐍Python',
+        value: `Григорий Дзюин\n - Различная информация и тд wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\n\nВКонтакте: https://vk.com/jet_green\nТелефон: 79127528879\nGitHub: https://github.com/Jet-Green\nDiscord: GrishaDzyin#1554`
+      },
+    ])
+
+    // .setFooter(`Присоединились ${jd.getDate()}.${jd.getMonth()}.${jd.getFullYear()}`)
+    .setThumbnail('https://sun9-41.userapi.com/impg/c857036/v857036501/3dc24/UlT2ZvHYQpQ.jpg?size=259x315&quality=96&sign=c7f15a59f71fbe2d67bc515ea5db94bb&type=album')
+    // .setImage('https://sun9-41.userapi.com/impg/c857036/v857036501/3dc24/UlT2ZvHYQpQ.jpg?size=259x315&quality=96&sign=c7f15a59f71fbe2d67bc515ea5db94bb&type=album')
+    .setAuthor('IT-Глазов')
+
+  infoChannel.send({ embeds: [embedInfoWorkflow, embedInfoMentors] })
+  // info
+
   return
   const channel = client.channels.cache.get('905440828808384542')
   if (channel) {
@@ -53,6 +121,7 @@ client.on('ready', async () => {
 })
 
 // Событие генерится в userjoin.js
+// @TODO
 client.on('guildMemberAdd', async (member) => {
   if (!member.guild) return
 
@@ -88,7 +157,7 @@ client.on('guildMemberAdd', async (member) => {
   let jd = member.joinedAt
   var embed = new DiscordJS.MessageEmbed()
     .setTitle(`Привет, ${member.displayName}`)
-    .setColor('#ff0051')
+    .setColor('#FB000D')
     .setDescription(`Добро пожаловать на наш сервер. Здесь вы найдёте единомышленников, поучаствуете в проектах и получите много опыта.\n
     У нас есть: \n- Web-разработка - Наставник Роман Грачёв(Roman_Gr#6347)\n- C# - Наставник Игорь Осаволюк(IgorOsavoluk#7799)\n- Java - Наставник Артём Никулин(Tema Nick#6586)\n- Python - Наставник Григорий Дзюин(GrishaDzyin#1554)\n\nЧтобы нам было легче подобрать вам команду, пожалуйста, напишите о себе несколько предложений(ваши навыки, можете прикрепить ссылки на свой GitHub, LinkedIn). Постарайтесь написать всю информацию в одном сообщении`)
     .setFooter(`Присоединились ${jd.getDate()}.${jd.getMonth()}.${jd.getFullYear()}`)
