@@ -36,67 +36,30 @@ client.on('ready', async () => {
   const infoChannel = client.channels.cache.get('907286503359664138')
   infoChannel.messages.fetch().then(messages => {
     messages.forEach(m => m.delete())
-  });
-  // .catch(e => consle.error(e))
+  }).catch(e => consle.error(e));
   // ) {
   // m.delete()
   // }
-  const embedInfoWorkflow = new DiscordJS.MessageEmbed()
-    .setTitle('🥅 Наша цель')
-    .setColor('#FD7279')
-    .addFields([
-      {
-        name: 'Для чего этот сервер?',
-        value: `Здесь вы познакомитесь со 🧑‍💻 **специалистами** в своей сфере и начнёте **участвовать в проектах**\n\nС **определённого уровня** 📈 вы сможете начать работать за деньги, выполняя заказы.\n**Не верите? - Спросите у наставников**`
-      },
-      {
-        name: 'Что за проекты?',
-        value: `Мы **реализуем идеи**, на которые набралась **команда**.\nВсе 💡 **идеи** в Agile-доске Trello: https://trello.com/invite/b/fFBotYmp/62e73d193e579fb8902853272cf5a09b/it-%D0%B3%D0%BB%D0%B0%D0%B7%D0%BE%D0%B2\n\nИщем в доске **идею** или **предлагаем** свою\n⇓\n🤝🏻 Набираем себе **команду**\n⇓\nПереходим в другую доску и начинаем работать над проектом как **настоящая команда**\n\nВы можете предложить проект в канале **"идеи"**\n*Подробнее про проекты могут рассказать наставники*`
-      },
-      {
-        name: 'Что за "определённый уровень"?',
-        value: 'После нескольких проектов вы можете попросить наставника **оценить ваши навыки**\nВы можете **повысить** свой **уровень**, попросив об этом наставника или администратора, но будьте внимательны, *расписать систему рангов*'
-      },
-      {
-        name: 'Как мне набрать команду?',
-        value: 'Легко!😃 - Просто **напишите** об этом **в чат** по направлению в котором вы развиваетесь'
-      }
-    ])
-    .setImage(`https://i.ibb.co/RPy9v2q/developing.png`)
-    .setAuthor('IT-Глазов')
-    .setThumbnail('https://sun9-41.userapi.com/impg/c857036/v857036501/3dc24/UlT2ZvHYQpQ.jpg?size=259x315&quality=96&sign=c7f15a59f71fbe2d67bc515ea5db94bb&type=album')
+  const embeds = require('./features/embeds');
 
-
-  const embedInfoMentors = new DiscordJS.MessageEmbed()
-    .setTitle(`Информация о наставниках`)
-    .setColor('#A5EF00')
-    .addFields([
-      {
-        name: '🌐 Web-разработка',
-        value: `🧑‍💻 **Роман Грачёв**\n - Различная информация и тд wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\n\nВКонтакте: https://vk.com/grachevrv\nМобилный телефон: 89068970429\nDiscord: Roman_Gr#6347\nGitHub: https://github.com/qbclub`
-      },
-      {
-        name: '☕ Java',
-        value: `🧑‍💻 **Артём Никулин**\n - Различная информация и тд wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\n\nВКонтакте: https://vk.com/nikulinme\nInstagram: 
-        https://www.instagram.com/nikulin.me/\nDiscord: Tema Nick#6586\nGitHub: https://github.com/nikulin-me`
-      },
-      {
-        name: '🦈 С#',
-        value: `🧑‍💻 **Игорь Осаволюк**\n - Различная информация и тд wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\n\nDiscord: IgorOsavoluk#7799`
-      },
-      {
-        name: '🐍 Python',
-        value: `🧑‍💻 **Григорий Дзюин**\n - Различная информация и тд wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\n\nВКонтакте: https://vk.com/jet_green\nТелефон: 79127528879\nGitHub: https://github.com/Jet-Green\nDiscord: GrishaDzyin#1554`
-      },
-    ])
-
-    // .setFooter(`Присоединились ${jd.getDate()}.${jd.getMonth()}.${jd.getFullYear()}`)
-    .setThumbnail('https://sun9-41.userapi.com/impg/c857036/v857036501/3dc24/UlT2ZvHYQpQ.jpg?size=259x315&quality=96&sign=c7f15a59f71fbe2d67bc515ea5db94bb&type=album')
-    // .setImage('https://sun9-41.userapi.com/impg/c857036/v857036501/3dc24/UlT2ZvHYQpQ.jpg?size=259x315&quality=96&sign=c7f15a59f71fbe2d67bc515ea5db94bb&type=album')
-    .setAuthor('IT-Глазов')
-
-  infoChannel.send({ embeds: [embedInfoWorkflow, embedInfoMentors] })
+  infoChannel.send({ embeds: embeds.infoEmbeds });
   // info
+  // welcome
+  const welcomeChannel = client.channels.cache.get('905440828808384542')
+  welcomeChannel.messages.fetch().then(messages => {
+    messages.forEach(m => m.delete())
+  }).catch(e => consle.error(e));
+  // direction
+  welcomeChannel.send({ embeds: [embeds.welcomeEmbeds[0]] })
+    .then((m) => {
+      for (emoji in dirRoles) {
+        // Нужно передавать туда id
+        m.react(emoji)
+      }
+    })
+  welcomeChannel.send({ embeds: [embeds.welcomeEmbeds[1]] })
+  // welcome
+
 
   return
   const channel = client.channels.cache.get('905440828808384542')
