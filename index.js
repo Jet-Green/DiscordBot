@@ -27,11 +27,12 @@ const client = new DiscordJS.Client({
 // on bot start
 client.on('ready', async () => {
   console.log('Bot is ready')
-
   new WOKCommands(client, {
     commandsDir: path.join(__dirname, 'commands'),
     featureDir: path.join(__dirname, 'features'),
   }).setDefaultPrefix('.')
+
+  return
   // info
   const infoChannel = client.channels.cache.get('907286503359664138')
   infoChannel.messages.fetch().then(messages => {
@@ -40,6 +41,7 @@ client.on('ready', async () => {
   // ) {
   // m.delete()
   // }
+
   const embeds = require('./features/embeds');
 
   infoChannel.send({ embeds: embeds.infoEmbeds });
@@ -120,17 +122,34 @@ client.on('guildMemberAdd', async (member) => {
   var embed = new DiscordJS.MessageEmbed()
     .setTitle(`Привет, ${member.displayName}`)
     .setColor('#FB000D')
-    .setDescription(`Добро пожаловать на наш сервер. Здесь вы найдёте единомышленников, поучаствуете в проектах и получите много опыта.\n
-    У нас есть: \n- Web-разработка - Наставник Роман Грачёв(Roman_Gr#6347)\n- C# - Наставник Игорь Осаволюк(IgorOsavoluk#7799)\n- Java - Наставник Артём Никулин(Tema Nick#6586)\n- Python - Наставник Григорий Дзюин(GrishaDzyin#1554)\n\nЧтобы нам было легче подобрать вам команду, пожалуйста, напишите о себе несколько предложений(ваши навыки, можете прикрепить ссылки на свой GitHub, LinkedIn). Постарайтесь написать всю информацию в одном сообщении`)
+    .setDescription(`Добро пожаловать на наш сервер. Здесь вы найдёте **единомышленников**, поучаствуете в проектах и **получите** много опыта.\n\nПожалуйста, **напишите** о себе несколько предложений(ваши **навыки**, можете прикрепить ссылки на свой GitHub, LinkedIn).\n*У вас есть 5 сообщений*`)
+    .addFields([
+      {
+        name: '🌐 Web-разработка',
+        value: `🧑‍💻 **Роман Грачёв**`
+      },
+      {
+        name: '☕ Java',
+        value: `🧑‍💻 **Артём Никулин**\n`
+      },
+      {
+        name: '🦈 С#',
+        value: `🧑‍💻 **Игорь Осаволюк**`
+      },
+      {
+        name: '🐍 Python',
+        value: `🧑‍💻 **Григорий Дзюин**`
+      },
+    ])
     .setFooter(`Присоединились ${jd.getDate()}.${jd.getMonth()}.${jd.getFullYear()}`)
     .setThumbnail('https://sun9-41.userapi.com/impg/c857036/v857036501/3dc24/UlT2ZvHYQpQ.jpg?size=259x315&quality=96&sign=c7f15a59f71fbe2d67bc515ea5db94bb&type=album')
     .setAuthor('IT-Глазов')
 
   member.createDM().then(async DMchannel => {
     await DMchannel.send({ embeds: [embed] })
-    const filter = m => m.content.includes(' ')
-    // Сообщения собираются 6 дней
-    const collector = new DiscordJS.MessageCollector(DMchannel, { filter, max: 1, time: 1000 * 60 * 60 * 24 * 6 })
+    const filter = m => m.content.includes(' ') && m.author.id == member.id
+    // Сообщения собираются 4 дня
+    const collector = new DiscordJS.MessageCollector(DMchannel, { filter, max: 5, time: 1000 * 60 * 60 * 24 * 4 })
     var description = []
     collector.on('collect', m => {
       console.log('collect message: ', m.content)
