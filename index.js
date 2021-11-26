@@ -5,7 +5,7 @@ const db = require('./firebaseinit').admin.firestore()
 const { dirRoles, lvlRoles, lvlPostId, dirPostId } = require('./config')
 require('dotenv').config()
 const { Intents } = DiscordJS
-// https://colorscheme.ru/#5B31Tw0w0w0w0 Color sheme
+// https://colorscheme.ru/#5B31Tw0w0w0w0 Color scheme
 
 // bot init
 const client = new DiscordJS.Client({
